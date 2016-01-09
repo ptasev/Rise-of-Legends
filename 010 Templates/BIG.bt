@@ -1,0 +1,60 @@
+//--------------------------------------
+//--- 010 Editor v6.0.2 Binary Template
+//
+// File:
+// Author:
+// Revision:
+// Purpose:
+//--------------------------------------
+LittleEndian();
+
+string readTextName(struct text& entry)
+{
+    if (entry.strLength == 0)
+        return "";
+
+    return entry.str;
+}
+struct text
+{
+    uint32 strLength;
+    wchar_t str[strLength];
+};
+string readFileName(struct file& f)
+{
+    return f.name.str;
+}
+
+struct file
+{
+    struct text name <read=readTextName>;
+    uint32 padding;
+    uint32 padding;
+    uint32 offset;
+    uint32 size;
+    uint32 padding;
+    time_t timeStamp;
+    struct text type <read=readTextName>;
+    uint16 padding;
+
+    local int64 currentPos = FTell();
+    FSeek(offset);
+    uint32 compressedSize;
+    byte data[compressedSize];
+    FSeek(currentPos);
+};
+
+struct
+{
+uint32 unkVer;
+byte unk;
+struct text magic <read=readTextName>;
+uint32 padding;
+
+uint32 fileCount;
+uint32 fileCount2;
+uint16 unk2;
+byte unk3;
+
+struct file files[fileCount] <optimize=false,read=readFileName>;
+} f;

@@ -1,0 +1,50 @@
+long UNK1; //(Version = 1)
+
+long numOfTags1;
+long numOfTags2;
+short UNK2; //(0xFFFF)
+byte UNK3; //0x00
+struct TreeIndex tree[numOfTags2];
+
+long numOfProperties1;
+long numOfProperties2;
+short UNK4; //(0xFFFF)
+byte UNK5; //0x00
+struct PropertyIndex props[numOfProperties2];
+
+long numOfNameStrings1;
+long numOfNameStrings2;
+short UNK6; //(0xFFFF)
+byte UNK7; //0x00
+struct String nameStrings[numOfNameStrings2];
+
+long numOfValueStrings1;
+long numOfValueStrings2;
+short UNK8; //(0xFFFF)
+byte UNK9; //0x00
+struct String valueStrings[numOfValueStrings2];
+
+long zero; // 0x00000000
+
+typedef struct
+{
+   short parent;
+   short child;
+   short nextSiblings;
+   short numOfProperties;
+   long ptrToProperty;// (number of starting property in props)
+} TreeIndex; //size: 0xC
+
+typedef struct 
+{
+   byte ptrToNameString; // (number of string in nameStrings)
+   short ptrToValueString; //(number of string in valueStrings multiplied by 0x10)
+   byte type; // (0x00 = no value, 0x20 = 4 byte hex, 0x40 = int, 0x50 = float, 0x60 = string)
+   long value;
+} PropertyIndex; //size: 0x8
+
+typedef struct
+{
+   long size;
+   wchar_t str[size];
+} String <optimize=false>;
