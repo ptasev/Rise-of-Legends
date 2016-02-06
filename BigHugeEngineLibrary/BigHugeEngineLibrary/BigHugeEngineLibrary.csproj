@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Archive\Big\BigBinaryReader.cs" />
     <Compile Include="Archive\Big\BigBinaryWriter.cs" />
+    <Compile Include="Archive\Big\BigDependency.cs" />
     <Compile Include="Archive\Big\BigEntry.cs" />
     <Compile Include="Archive\Big\BigFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

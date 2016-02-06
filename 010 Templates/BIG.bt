@@ -20,14 +20,34 @@ struct text
     uint32 strLength;
     wchar_t str[strLength];
 };
-string readFileName(struct file& f)
+string readFileName(struct AssetHeader& f)
 {
     return f.name.str;
 }
 
-struct file
+struct BhgDependencyData
+{
+    struct text depPath;
+    uint32 hash;
+};
+
+struct BhgDependencyArray
+{
+    uint32 fileCount;
+
+    if (fileCount > 0)
+    {
+        uint32 capacity;
+        byte flags[3];
+        
+        struct BhgDependencyData dependencies[fileCount] <optimize=false>;
+    }
+};
+
+struct AssetHeader
 {
     struct text name <read=readTextName>;
+    
     uint32 padding;
     uint32 padding;
     uint32 offset;
@@ -35,7 +55,7 @@ struct file
     uint32 padding;
     time_t timeStamp;
     struct text type <read=readTextName>;
-    uint16 padding;
+    uint16 flags;
 
     local int64 currentPos = FTell();
     FSeek(offset);
@@ -44,17 +64,21 @@ struct file
     FSeek(currentPos);
 };
 
+struct BhgAssetHeaderArray
+{
+    uint32 fileCount;
+    uint32 capacity;
+    byte flags[3];
+
+    struct AssetHeader assets[fileCount] <optimize=false,read=readFileName>;
+};
+
 struct
 {
-uint32 unkVer;
-byte unk;
-struct text magic <read=readTextName>;
-uint32 padding;
-
-uint32 fileCount;
-uint32 fileCount2;
-uint16 unk2;
-byte unk3;
-
-struct file files[fileCount] <optimize=false,read=readFileName>;
+    uint32 version;
+    byte validState;
+    struct text magic <read=readTextName>;
+    
+    struct BhgDependencyArray depArray;
+    struct BhgAssetHeaderArray assetArray;
 } f;

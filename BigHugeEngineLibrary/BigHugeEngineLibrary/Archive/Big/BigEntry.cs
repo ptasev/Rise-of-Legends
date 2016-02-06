@@ -46,12 +46,12 @@
 
         public BigEntry()
         {
-
         }
 
         public void Read(BigBinaryReader reader)
         {
             this.FileName = reader.ReadString();
+
             reader.Seek(8, SeekOrigin.Current); // skip padding?
 
             this._offset = reader.ReadInt32();
