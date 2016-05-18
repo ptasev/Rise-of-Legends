@@ -15,6 +15,13 @@ struct FloatVect
     float z;
 };
 
+struct IntVect
+{
+    int32 x;
+    int32 y;
+    int32 z;
+};
+
 struct HFloatVect
 {
     float x;
@@ -100,6 +107,16 @@ struct Chunk
         // z,y,x to match up with 3ds Max
         struct Triangle faces[numElements/3];
     }
+    else if (chunkId == 51)
+    {
+        uint32 numElements;
+        uint32 data[numElements];
+    }
+    else if (chunkId == 50)
+    {
+        uint32 numElements;
+        float data[numElements];
+    }
     else if (chunkId == 7)
     {
         uint32 vertexIndexStart;
@@ -119,6 +136,14 @@ struct Chunk
     else if (chunkId == 70)
     {
         uint32 unk;
+    }
+    else if (chunkId == 90)
+    {
+        uint32 unk;
+    }
+    else if (chunkId == 17)
+    {
+        float unk[4];
     }
 
     struct Chunk children[numChildren] <optimize=false>;

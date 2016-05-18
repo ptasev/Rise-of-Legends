@@ -55,6 +55,16 @@ namespace RoLBigArchiver
             fullPathCol.FillsFreeSpace = true;
             fullPathCol.IsEditable = false;
             this.entriesObjectListView.Columns.Add(fullPathCol);
+
+            //string expPath = @"C:\Games\Rise Of Legends\BIGS\exp";
+            //foreach (string bigFileName in Directory.GetFiles(@"C:\Games\Rise Of Legends\BIGS", "*.big", SearchOption.TopDirectoryOnly))
+            //{
+            //    //MessageBox.Show(bigFileName);
+            //    this.file = new BigFile();
+            //    this.file.Read(File.Open(bigFileName, FileMode.Open, FileAccess.Read, FileShare.Read));
+            //    file.Export(expPath);
+            //}
+            //MessageBox.Show("Success");
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
