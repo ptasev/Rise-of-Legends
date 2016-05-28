@@ -16,6 +16,7 @@ namespace RoLBigArchiver
         public ProgressDialog(BigFile file)
         {
             InitializeComponent();
+            this.ShowInTaskbar = false;
             this.StartPosition = FormStartPosition.CenterParent;
             this.progressBar.Style = ProgressBarStyle.Blocks;
             this.progressStatusRichTextBox.HideSelection = false;

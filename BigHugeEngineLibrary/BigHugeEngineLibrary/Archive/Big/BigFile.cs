@@ -168,6 +168,9 @@
             int progress = 0;
             bool failed;
 
+            int succeeded = 0;
+            int failedCount = 0;
+
             for (int i = 0; i < this.Entries.Count;)
             {
                 try
@@ -197,15 +200,20 @@
                 progress = i * 100 / this.Entries.Count;
                 if (failed)
                 {
-                    evArgs = new ProgressChangedEventArgs(progress, "FAILED");
+                    ++failedCount;
+                    evArgs = new ProgressChangedEventArgs(progress, "FAILED" + Environment.NewLine);
                     this.OnImportProgressChanged(evArgs);
                 }
                 else
                 {
-                    evArgs = new ProgressChangedEventArgs(progress, "SUCCESS");
+                    ++succeeded;
+                    evArgs = new ProgressChangedEventArgs(progress, "SUCCESS" + Environment.NewLine);
                     this.OnImportProgressChanged(evArgs);
                 }
             }
+
+            evArgs = new ProgressChangedEventArgs(100, string.Format("{0} Succeeded, {1} Failed", succeeded, failedCount));
+            this.OnImportProgressChanged(evArgs);
         }
 
         public void Import(string folderPath)
@@ -231,7 +239,7 @@
                     {
                         string eName = entry.FileName.Substring(2);
 
-                        if (this.Entries[i].Type.Equals("bxml", StringComparison.InvariantCultureIgnoreCase))
+                        if (entry.Type.Equals("bxml", StringComparison.InvariantCultureIgnoreCase))
                         {
                             eName += "." + entry.Type;
                         }

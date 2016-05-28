@@ -23,12 +23,13 @@ namespace RoLBigArchiver
         {
             InitializeComponent();
             this.Text = Properties.Resources.AppTitleLong;
-            this.ShowIcon = false;
+            this.Icon = Properties.Resources.Ryder25;
 
             this.openFileDialog.Filter = "Big files|*.big|All files|*.*";
             this.saveFileDialog.Filter = "Big files|*.big|All files|*.*";
 
             this.entriesObjectListView.ShowGroups = false;
+            this.entriesObjectListView.FullRowSelect = true;
             this.entriesObjectListView.CellEditActivation = ObjectListView.CellEditActivateMode.DoubleClick;
 
             OLVColumn nameCol = new OLVColumn("Name", "Name");
@@ -38,6 +39,7 @@ namespace RoLBigArchiver
 
             OLVColumn fileTypeCol = new OLVColumn("File Type", "Type");
             fileTypeCol.Width = 150;
+            fileTypeCol.IsEditable = false;
             this.entriesObjectListView.Columns.Add(fileTypeCol);
 
             OLVColumn sizeCol = new OLVColumn("Size", "Size");
@@ -71,11 +73,20 @@ namespace RoLBigArchiver
         {
             if (this.openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.file = new BigFile();
-                this.file.Read(File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read, FileShare.Read));
+                try
+                {
+                    this.file = new BigFile();
+                    this.file.Read(File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read, FileShare.Read));
 
-                this.entriesObjectListView.SetObjects(this.file.Entries);
-                this.Text = Properties.Resources.AppTitleShort + " - " + Path.GetFileName(openFileDialog.FileName);
+                    this.entriesObjectListView.SetObjects(this.file.Entries);
+                    this.Text = Properties.Resources.AppTitleShort + " - " + Path.GetFileName(openFileDialog.FileName);
+                    this.fileCountToolStripStatusLabel.Text = this.file.Entries.Count.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to open file!" + Environment.NewLine + Environment.NewLine +
+                        ex.Message, "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -135,9 +146,22 @@ namespace RoLBigArchiver
 
             if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.file.Write(File.Open(saveFileDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.Read));
-                this.Text = Properties.Resources.AppTitleShort + " - " + Path.GetFileName(saveFileDialog.FileName);
+                try
+                {
+                    this.file.Write(File.Open(saveFileDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.Read));
+                    this.Text = Properties.Resources.AppTitleShort + " - " + Path.GetFileName(saveFileDialog.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to save file!" + Environment.NewLine + Environment.NewLine +
+                        ex.Message, "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+        }
+
+        private void readMeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.petartasev.com/modding/rise-of-nations/big-archiver/");
         }
     }
 }

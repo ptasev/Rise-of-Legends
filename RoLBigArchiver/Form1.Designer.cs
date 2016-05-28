@@ -41,8 +41,12 @@
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.entriesObjectListView = new BrightIdeasSoftware.ObjectListView();
+            this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.fileCountToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.filesToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.entriesObjectListView)).BeginInit();
+            this.mainStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -70,17 +74,19 @@
             // 
             // openToolStripMenuItem
             // 
+            this.openToolStripMenuItem.Image = global::RoLBigArchiver.Properties.Resources.folder;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
+            this.saveToolStripMenuItem.Image = global::RoLBigArchiver.Properties.Resources.disk;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -96,14 +102,14 @@
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.exportToolStripMenuItem.Text = "Export All";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.importToolStripMenuItem.Text = "Import All";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
@@ -120,19 +126,45 @@
             this.readMeToolStripMenuItem.Name = "readMeToolStripMenuItem";
             this.readMeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.readMeToolStripMenuItem.Text = "ReadMe";
+            this.readMeToolStripMenuItem.Click += new System.EventHandler(this.readMeToolStripMenuItem_Click);
             // 
             // entriesObjectListView
             // 
             this.entriesObjectListView.CellEditUseWholeCell = false;
+            this.entriesObjectListView.Cursor = System.Windows.Forms.Cursors.Default;
             this.entriesObjectListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.entriesObjectListView.HighlightBackgroundColor = System.Drawing.Color.Empty;
             this.entriesObjectListView.HighlightForegroundColor = System.Drawing.Color.Empty;
             this.entriesObjectListView.Location = new System.Drawing.Point(0, 24);
             this.entriesObjectListView.Name = "entriesObjectListView";
-            this.entriesObjectListView.Size = new System.Drawing.Size(784, 537);
+            this.entriesObjectListView.Size = new System.Drawing.Size(784, 515);
             this.entriesObjectListView.TabIndex = 2;
             this.entriesObjectListView.UseCompatibleStateImageBehavior = false;
             this.entriesObjectListView.View = System.Windows.Forms.View.Details;
+            // 
+            // mainStatusStrip
+            // 
+            this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileCountToolStripStatusLabel,
+            this.filesToolStripStatusLabel});
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 539);
+            this.mainStatusStrip.Name = "mainStatusStrip";
+            this.mainStatusStrip.Size = new System.Drawing.Size(784, 22);
+            this.mainStatusStrip.SizingGrip = false;
+            this.mainStatusStrip.TabIndex = 3;
+            this.mainStatusStrip.Text = "statusStrip1";
+            // 
+            // fileCountToolStripStatusLabel
+            // 
+            this.fileCountToolStripStatusLabel.Name = "fileCountToolStripStatusLabel";
+            this.fileCountToolStripStatusLabel.Size = new System.Drawing.Size(13, 17);
+            this.fileCountToolStripStatusLabel.Text = "0";
+            // 
+            // filesToolStripStatusLabel
+            // 
+            this.filesToolStripStatusLabel.Name = "filesToolStripStatusLabel";
+            this.filesToolStripStatusLabel.Size = new System.Drawing.Size(30, 17);
+            this.filesToolStripStatusLabel.Text = "Files";
             // 
             // Form1
             // 
@@ -140,12 +172,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.entriesObjectListView);
+            this.Controls.Add(this.mainStatusStrip);
             this.Controls.Add(this.mainMenuStrip);
             this.Name = "Form1";
             this.Text = "Form1";
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.entriesObjectListView)).EndInit();
+            this.mainStatusStrip.ResumeLayout(false);
+            this.mainStatusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,6 +201,9 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private BrightIdeasSoftware.ObjectListView entriesObjectListView;
+        private System.Windows.Forms.StatusStrip mainStatusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel fileCountToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel filesToolStripStatusLabel;
     }
 }
 
